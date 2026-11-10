@@ -1,13 +1,10 @@
 ﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-
 namespace VIS02_AndresYEduardo
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Lógica de inicio de App.xaml.
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
     }
 

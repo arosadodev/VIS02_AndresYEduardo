@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 namespace VIS02_AndresYEduardo
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción de MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
