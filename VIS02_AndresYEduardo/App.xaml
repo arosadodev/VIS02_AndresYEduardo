@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="NAVEWIN.xaml">
     <Application.Resources>
+        <!-- PALETA MODO NORMAL Y NOCHE -->
         <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#FFF5F5F5" />
+        <SolidColorBrush x:Key="NormalForegroundBrush" Color="#FF111111" />
+        <SolidColorBrush x:Key="NormalControlBgBrush" Color="#FFFFFFFF" />
         <SolidColorBrush x:Key="NormalTextBrush" Color="#FF111111" />
         <SolidColorBrush x:Key="NormalControlBackgroundBrush" Color="#FFFFFFFF" />
+
         <SolidColorBrush x:Key="NocheBackgroundBrush" Color="#FF1E1E1E" />
+        <SolidColorBrush x:Key="NocheForegroundBrush" Color="#FFF0F0F0" />
+        <SolidColorBrush x:Key="NocheControlBgBrush" Color="#FF2D2D30" />
         <SolidColorBrush x:Key="NocheTextBrush" Color="#FFF0F0F0" />
         <SolidColorBrush x:Key="NocheControlBackgroundBrush" Color="#FF2D2D30" />
 
@@ -14,15 +20,15 @@
             <Setter Property="Background" Value="{DynamicResource NormalBackgroundBrush}" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource NormalTextBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
         </Style>
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="{DynamicResource NormalTextBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
             <Setter Property="Background" Value="{DynamicResource NormalBackgroundBrush}" />
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="{DynamicResource NormalTextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource NormalControlBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
+            <Setter Property="Background" Value="{DynamicResource NormalControlBgBrush}" />
         </Style>
     </Application.Resources>
 </Application>
