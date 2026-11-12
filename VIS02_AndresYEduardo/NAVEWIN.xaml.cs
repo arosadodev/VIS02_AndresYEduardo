@@ -173,7 +173,8 @@ public partial class NAVEWIN : Window
         {
             Owner = this
         };
-        ventanaDetalle.Show();
+        ventanaDetalle.ShowDialog();
+        elementoSeleccionado.IsSelected = false;
     }
 
     private void ModoNoche_Cambio(object remitente, RoutedEventArgs argumentos)
@@ -186,5 +187,13 @@ public partial class NAVEWIN : Window
 
         MainGrid.Background =
             (Pincel)System.Windows.Application.Current.FindResource(claveRecurso);
+
+        foreach (Window ventana in OwnedWindows)
+        {
+            if (ventana is DETAILWIN detalle)
+            {
+                detalle.SincronizarTemaConOwner();
+            }
+        }
     }
 }
