@@ -56,6 +56,11 @@ namespace VIS02_AndresYEduardo
             // Guarda la ruta recibida para usarla en los demas metodos.
             filePath = path;
 
+            // Titulo de la ventana y cabecera: se muestra el nombre del archivo.
+            string nombreArchivo = Path.GetFileName(filePath);
+            this.Title = nombreArchivo + " — Visor Multimedia";
+            TxtNombreArchivo.Text = "📄  " + nombreArchivo;
+
             // El evento Loaded se dispara cuando la ventana ya esta creada y visible.
             // Se aprovecha para sincronizar el tema: en ese momento Owner ya esta
             // asignado por NAVEWIN.

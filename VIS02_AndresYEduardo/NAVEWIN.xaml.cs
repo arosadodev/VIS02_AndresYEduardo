@@ -323,6 +323,7 @@ public partial class NAVEWIN : Window
     /// <summary>
     /// Aplica el tema (Normal o Noche) a los recursos globales de la aplicacion
     /// y directamente a cada control de NAVEWIN (fondo, arbol, textos, bordes).
+    /// La cabecera azul conserva siempre su color fijo y no se modifica.
     /// </summary>
     public void AplicarTema(bool noche)
     {
@@ -348,8 +349,6 @@ public partial class NAVEWIN : Window
         ChkModoNoche.Foreground = primerPlano;
         LblRutaActual.Foreground = primerPlano;
 
-        TvDirectorio.Background = fondoControl;
         TvDirectorio.Foreground = primerPlano;
-        TvDirectorio.BorderBrush = borde;
     }
 }
