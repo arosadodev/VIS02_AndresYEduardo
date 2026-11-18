@@ -286,13 +286,7 @@ public partial class NAVEWIN : Window
         {
             Owner = this
         };
-
-        // ShowDialog abre la ventana en modo MODAL: el usuario no puede usar
-        // NAVEWIN hasta que cierre el detalle. El codigo se queda esperando aqui.
         ventanaDetalle.ShowDialog();
-
-        // Al cerrar el detalle, se deselecciona el nodo para poder volver a
-        // hacer clic en el mismo archivo y reabrirlo.
         elementoSeleccionado.IsSelected = false;
     }
 
@@ -349,6 +343,15 @@ public partial class NAVEWIN : Window
         ChkModoNoche.Foreground = primerPlano;
         LblRutaActual.Foreground = primerPlano;
 
-        TvDirectorio.Foreground = primerPlano;
+        MainGrid.Background =
+            (Pincel)System.Windows.Application.Current.FindResource(claveRecurso);
+
+        foreach (Window ventana in OwnedWindows)
+        {
+            if (ventana is DETAILWIN detalle)
+            {
+                detalle.SincronizarTemaConOwner();
+            }
+        }
     }
 }

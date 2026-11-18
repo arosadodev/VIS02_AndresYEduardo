@@ -1,45 +1,17 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--
-        DICCIONARIO DE ESTILOS DEL VISOR
-        =====================================================================
-        Estos estilos tienen x:Key, por lo que NO se aplican solos: hay que
-        referenciarlos explicitamente con Style="{StaticResource Nombre}".
-        Se importan desde DETAILWIN.xaml mediante MergedDictionaries.
-        =====================================================================
-    -->
-
-    <!-- Estilo de la imagen del visor. -->
     <Style x:Key="ImageDetailStyle" TargetType="Image">
-        <!-- Uniform: la imagen se agranda o reduce manteniendo su proporcion
-             y sin deformarse, hasta caber en el espacio disponible. -->
         <Setter Property="Stretch" Value="Uniform"/>
-        <!-- Margen interior de 10 pixeles alrededor de la imagen. -->
         <Setter Property="Margin" Value="10"/>
     </Style>
-
-    <!-- Estilo del reproductor de audio/video. -->
     <Style x:Key="MediaDetailStyle" TargetType="MediaElement">
-        <!-- Manual: el contenido NO se reproduce automaticamente al cargarse;
-             hay que llamar a Play() (lo hacen los botones creados en C#). -->
         <Setter Property="LoadedBehavior" Value="Manual"/>
-        <!-- Stop: al descargarse el control (por ejemplo, al cerrar la ventana),
-             la reproduccion se detiene por completo. -->
         <Setter Property="UnloadedBehavior" Value="Stop"/>
     </Style>
-
-    <!-- Estilo del visor de archivos .txt. -->
     <Style x:Key="TextDetailStyle" TargetType="TextBox">
-        <!-- AcceptsReturn: permite varias lineas y saltos de linea. -->
         <Setter Property="AcceptsReturn" Value="True"/>
-        <!-- IsReadOnly: el usuario puede seleccionar y copiar, pero no editar el archivo. -->
         <Setter Property="IsReadOnly" Value="True"/>
-        <!-- Fuente monoespaciada, tipica para ver codigo o texto alineado. -->
         <Setter Property="FontFamily" Value="Consolas"/>
-        <!-- Tamano inicial; los botones "Texto +" y "Texto -" lo cambian en ejecucion. -->
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Background" Value="{DynamicResource CurrentControlBgBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 </ResourceDictionary>
