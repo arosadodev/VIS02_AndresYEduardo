@@ -1,15 +1,32 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
+  <!--
+    ===========================================================================
+    CONFIGURACION DEL PROYECTO
+    ===========================================================================
+    Este archivo indica a .NET como compilar la aplicacion: que tipo de salida
+    genera, que version del framework usa y que librerias externas necesita.
+    Se usa el formato "SDK style", mas corto que los .csproj antiguos.
+    ===========================================================================
+  -->
   <PropertyGroup>
+    <!-- WinExe: aplicacion de escritorio con interfaz grafica (sin ventana de consola). -->
     <OutputType>WinExe</OutputType>
+    <!-- Version de .NET: .NET 9 para Windows (WPF necesita el sufijo "-windows"). -->
     <TargetFramework>net9.0-windows</TargetFramework>
+    <!-- Nullable: el compilador avisa cuando una variable podria ser null. -->
     <Nullable>enable</Nullable>
+    <!-- ImplicitUsings: anade automaticamente los "using" mas comunes. -->
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- UseWPF: habilita Windows Presentation Foundation (XAML, Window, Button...). -->
     <UseWPF>true</UseWPF>
+    <!-- UseWindowsForms: permite usar controles de Windows Forms, necesario para
+         FolderBrowserDialog (el dialogo de "Seleccionar carpeta"). -->
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Declara la carpeta Resources del proyecto (contiene MediaStyles.xaml). -->
     <Folder Include="Resources\" />
   </ItemGroup>
 
