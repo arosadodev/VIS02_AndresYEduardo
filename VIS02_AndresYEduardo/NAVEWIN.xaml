@@ -3,41 +3,84 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NAVEWIN HiperGaler&#237;a"
         Height="550"
-        Width="800">
+        Width="800"
+        Background="{DynamicResource CurrentBackgroundBrush}">
+    <!--
+        VENTANA PRINCIPAL (navegador)
+        =====================================================================
+        Esta ventana muestra un arbol de carpetas y archivos. Cuando el usuario
+        hace clic en un archivo, se abre DETAILWIN para verlo.
+        La logica (que hacer al pulsar, al seleccionar, etc.) esta en NAVEWIN.xaml.cs;
+        aqui solo se describe COMO SE VE la ventana.
+        =====================================================================
+    -->
     <Window.Resources>
+        <!--
+            Recurso LOCAL de esta ventana (solo existe dentro de NAVEWIN).
+            x:Key es el nombre con el que se referencia: Style="{StaticResource NavButtonStyle}".
+            TargetType="Button" indica que este estilo esta pensado para botones.
+        -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FF007ACC" />
-            <Setter Property="Foreground" Value="#FFFFFFFF" />
-            <Setter Property="Padding" Value="12,6" />
-            <Setter Property="Margin" Value="8,4,12,4" />
-            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="#FF007ACC" /> <!-- Color de fondo azul -->
+            <Setter Property="Foreground" Value="#FFFFFFFF" /> <!-- Color del texto blanco -->
+            <Setter Property="Padding" Value="12,6" />         <!-- Espacio interior: 12 izquierda/derecha, 6 arriba/abajo -->
+            <Setter Property="Margin" Value="8,4,12,4" />      <!-- Separacion exterior: izq, arriba, der, abajo -->
+            <Setter Property="BorderThickness" Value="0" />    <!-- Sin borde -->
         </Style>
     </Window.Resources>
 
-    <Grid x:Name="MainGrid" Background="{DynamicResource NormalBackgroundBrush}">
+    <!--
+        Grid con dos filas:
+          Fila 0 (Auto)  : barra de herramientas; su altura depende del contenido.
+          Fila 1 (*)     : el arbol, que ocupa todo el espacio restante.
+        MainGrid tiene nombre (x:Name) para poder cambiar su fondo desde C#.
+    -->
+    <Grid x:Name="MainGrid" Background="{DynamicResource CurrentBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- BARRA SUPERIOR: boton de carpeta, casilla de modo noche y ruta actual -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="8">
+            <!-- Boton que abre el dialogo para elegir otra carpeta. Click apunta al metodo del code-behind. -->
             <Button Content="Seleccionar Carpeta"
                     Style="{StaticResource NavButtonStyle}"
                     Click="SeleccionarCarpeta_Click" />
+            <!--
+                CheckBox de modo noche: tanto Checked como Unchecked llaman al mismo
+                metodo, porque en ambos casos hay que actualizar el tema.
+            -->
             <CheckBox x:Name="ChkModoNoche"
                       Content="Modo Noche"
+                      Foreground="{DynamicResource CurrentForegroundBrush}"
                       VerticalAlignment="Center"
                       Margin="8,0,16,0"
                       Checked="ModoNoche_Cambio"
                       Unchecked="ModoNoche_Cambio" />
+            <!--
+                Label que muestra la ruta de la carpeta actual.
+                El ToolTip se enlaza (Binding) a su propio contenido: al pasar el raton
+                por encima se ve el texto completo si la ruta es demasiado larga.
+            -->
             <Label x:Name="LblRutaActual"
+                   Foreground="{DynamicResource CurrentForegroundBrush}"
                    VerticalAlignment="Center"
                    ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
         </StackPanel>
 
+        <!--
+            ARBOL DE CARPETAS Y ARCHIVOS.
+            SelectedItemChanged se dispara cada vez que el usuario selecciona un nodo;
+            en el code-behind se comprueba si ese nodo es un archivo y, si lo es,
+            se abre la ventana de detalle.
+        -->
         <TreeView x:Name="TvDirectorio"
                   Grid.Row="1"
                   Margin="8"
+                  Background="{DynamicResource CurrentControlBgBrush}"
+                  Foreground="{DynamicResource CurrentForegroundBrush}"
+                  BorderBrush="{DynamicResource CurrentBorderBrush}"
                   SelectedItemChanged="Directorio_ElementoSeleccionado" />
     </Grid>
 </Window>

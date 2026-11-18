@@ -2,35 +2,87 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:md="clr-namespace:MdXaml;assembly=MdXaml"
-        Title="Visor de Detalle" Height="600" Width="800">
+        Title="Visor de Detalle" Height="600" Width="800"
+        Background="{DynamicResource CurrentBackgroundBrush}">
+    <!--
+        VENTANA DE DETALLE (visor)
+        =====================================================================
+        Muestra el contenido de UN archivo. En el XAML estan definidos los cuatro
+        visores posibles (imagen, multimedia, texto y Markdown), todos ocultos.
+        El code-behind decide cual mostrar segun la extension del archivo.
+        El prefijo "md" del namespace permite usar controles del paquete NuGet
+        MdXaml, que es el que sabe dibujar Markdown.
+        =====================================================================
+    -->
     <Window.Resources>
+        <!--
+            ResourceDictionary local de esta ventana.
+            MergedDictionaries permite "importar" otros diccionarios de recursos:
+            aqui se carga Resources/MediaStyles.xaml, que contiene los estilos
+            de Image, MediaElement y TextBox usados mas abajo.
+        -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MediaStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <!-- Estilo comun de los botones de esta ventana (Zoom, Play, Texto, Cancelar). -->
             <Style x:Key="DetailButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#FF28A745"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="Background" Value="#FF28A745"/> <!-- Fondo verde -->
+                <Setter Property="Foreground" Value="White"/>     <!-- Texto blanco -->
+                <Setter Property="Padding" Value="8,4"/>         <!-- Espacio interior -->
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid x:Name="DetailGrid" Margin="10">
+
+    <!--
+        Grid principal con tres filas:
+          Fila 0 (Auto) : botones de control. Empieza vacia y se rellena desde C#
+                          segun el tipo de archivo (Zoom, Play/Pausa/Stop, Texto +/-, etc.).
+          Fila 1 (*)    : el contenido del archivo, dentro de un borde.
+          Fila 2 (Auto) : el boton Cancelar.
+        DetailGrid tiene nombre para que el codigo pueda cambiar su color de fondo.
+    -->
+    <Grid x:Name="DetailGrid" Margin="10" Background="{DynamicResource CurrentBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <!-- Contenedor horizontal donde el code-behind agrega botones dinamicamente. -->
         <StackPanel Grid.Row="0" x:Name="PanelControles" Orientation="Horizontal" Margin="0,0,0,10"/>
-        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+
+        <!-- Marco con esquinas redondeadas que rodea al visor. -->
+        <Border x:Name="MarcoContenido" Grid.Row="1"
+                BorderBrush="{DynamicResource CurrentBorderBrush}"
+                Background="{DynamicResource CurrentControlBgBrush}"
+                BorderThickness="1" CornerRadius="4">
+            <!--
+                Los cuatro visores estan superpuestos en la misma celda.
+                Todos comienzan ocultos (Visibility="Collapsed"): al mostrar uno,
+                los demas siguen ocultos y no ocupan espacio.
+            -->
             <Grid x:Name="ContentHostGrid">
+                <!-- Visor de imagenes; su estilo viene de MediaStyles.xaml. -->
                 <Image x:Name="ImgViewer" Style="{StaticResource ImageDetailStyle}" Visibility="Collapsed"/>
+                <!-- Reproductor de audio/video (MediaElement es un control de WPF). -->
                 <MediaElement x:Name="MediaViewer" Style="{StaticResource MediaDetailStyle}" Visibility="Collapsed"/>
+                <!-- Visor de texto plano: un TextBox de solo lectura. -->
                 <TextBox x:Name="TxtViewer" Style="{StaticResource TextDetailStyle}" Visibility="Collapsed"/>
-                <md:MarkdownScrollViewer x:Name="MdViewer" Visibility="Collapsed"/>
+                <!-- Visor de Markdown del paquete MdXaml (control externo, de ahi el prefijo md:). -->
+                <md:MarkdownScrollViewer x:Name="MdViewer"
+                                         Background="{DynamicResource CurrentControlBgBrush}"
+                                         Foreground="{DynamicResource CurrentForegroundBrush}"
+                                         Visibility="Collapsed"/>
             </Grid>
         </Border>
+
+        <!-- Botonera inferior, alineada a la derecha. -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <!--
+                IsCancel="True" hace que este boton tambien se active con la tecla Esc.
+                Click cierra la ventana mediante el metodo BtnCancelar_Click.
+            -->
             <Button Content="Cancelar" IsCancel="True" Style="{StaticResource DetailButtonStyle}" Click="BtnCancelar_Click"/>
         </StackPanel>
     </Grid>
