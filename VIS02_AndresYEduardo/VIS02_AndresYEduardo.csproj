@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <!--
     ===========================================================================
@@ -31,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--
+      Paquetes NuGet (librerias externas descargadas al compilar):
+        MdXaml          : dibuja archivos Markdown en WPF (MarkdownScrollViewer).
+        WPF-UI.Markdown : esta referenciado, pero actualmente el codigo no lo usa.
+    -->
     <PackageReference Include="MdXaml" Version="1.27.0" />
     <PackageReference Include="WPF-UI.Markdown" Version="4.3.0" />
   </ItemGroup>
