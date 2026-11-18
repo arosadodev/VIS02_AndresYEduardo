@@ -10,16 +10,27 @@
                             todas las ventanas y controles de la aplicacion.
     -->
     <Application.Resources>
-        <!-- PALETA MODO NORMAL Y NOCHE -->
+        <!--
+            =====================================================================
+            PALETA MODO NORMAL Y NOCHE
+            =====================================================================
+            Cada color se guarda como un recurso con una clave (x:Key) para poder
+            recuperarlo por su nombre desde el XAML o desde el codigo C#.
+            =====================================================================
+        -->
+        <!-- Colores del MODO NORMAL (claro) -->
         <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#FFF5F5F5" />
         <SolidColorBrush x:Key="NormalForegroundBrush" Color="#FF111111" />
         <SolidColorBrush x:Key="NormalControlBgBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFCCCCCC" />
         <SolidColorBrush x:Key="NormalTextBrush" Color="#FF111111" />
         <SolidColorBrush x:Key="NormalControlBackgroundBrush" Color="#FFFFFFFF" />
 
+        <!-- Colores del MODO NOCHE (oscuro) -->
         <SolidColorBrush x:Key="NocheBackgroundBrush" Color="#FF1E1E1E" />
         <SolidColorBrush x:Key="NocheForegroundBrush" Color="#FFF0F0F0" />
         <SolidColorBrush x:Key="NocheControlBgBrush" Color="#FF2D2D30" />
+        <SolidColorBrush x:Key="NocheBorderBrush" Color="#FF3F3F46" />
         <SolidColorBrush x:Key="NocheTextBrush" Color="#FFF0F0F0" />
         <SolidColorBrush x:Key="NocheControlBackgroundBrush" Color="#FF2D2D30" />
 
@@ -43,15 +54,27 @@
             <Setter Property="Background" Value="{DynamicResource CurrentBackgroundBrush}" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
         </Style>
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
-            <Setter Property="Background" Value="{DynamicResource NormalBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="{DynamicResource NormalForegroundBrush}" />
-            <Setter Property="Background" Value="{DynamicResource NormalControlBgBrush}" />
+            <Setter Property="Background" Value="{DynamicResource CurrentControlBgBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CurrentBorderBrush}" />
+        </Style>
+        <Style TargetType="TreeView">
+            <Setter Property="Background" Value="{DynamicResource CurrentControlBgBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CurrentBorderBrush}" />
+        </Style>
+        <Style TargetType="TreeViewItem">
+            <Setter Property="Foreground" Value="{DynamicResource CurrentForegroundBrush}" />
         </Style>
     </Application.Resources>
 </Application>
